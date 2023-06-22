@@ -1,0 +1,21 @@
+module.exports = {
+  server: {
+    port: 8080,
+  },
+  session: {
+    secret: "",
+    resave: true,
+    saveUninitialized: false,
+  },
+  saml: {
+    cert: "cert.pem",
+    entryPoint: "",
+    issuer: "http://localhost:8080",
+    protocol: "http://",
+    path: "/login/callback",
+    options: {
+      failureRedirect: "/login",
+      failureFlash: true,
+    },
+  },
+};

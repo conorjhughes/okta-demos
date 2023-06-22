@@ -1,0 +1,17 @@
+module.exports = {
+  server: {
+    port: 8080,
+  },
+  session: {
+    secret: "",
+    resave: true,
+    saveUninitialized: false,
+  },
+  oidc: {
+    issuer: "",
+    client_id: "",
+    client_secret: "",
+    appBaseUrl: "http://localhost:8080",
+    scope: "openid email profile",
+  },
+};
