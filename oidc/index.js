@@ -9,16 +9,36 @@ const oidc = new ExpressOIDC(config.oidc);
 
 app.use(session(config.session));
 
-// Includes /login and /authorization-code/callback routes
+/* 
+Includes following routes:
+
+/login
+/logout
+/authorization-code/callback
+*/
 app.use(oidc.router);
 
 app.get("/", (req, res) => {
   if (!req.userContext) {
     return res.redirect("/login");
   } else {
-    return res.status(200).json({
-      user: req.userContext.userinfo,
-    });
+    // Check group
+    if (
+      req.userContext?.userinfo[config.oidc.rolesClaim]?.includes(
+        "dev-developer"
+      )
+    ) {
+      res.send(`
+        <pre>${JSON.stringify(req.userContext, undefined, 2)}</pre>
+        <form method="POST" action="/logout">
+          <button type="submit">Logout</button>
+        </form>
+      `);
+    } else {
+      return res.status(401).json({
+        message: "You are not authorized",
+      });
+    }
   }
 });
 

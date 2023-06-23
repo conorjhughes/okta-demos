@@ -13,5 +13,6 @@ module.exports = {
     client_secret: "",
     appBaseUrl: "http://localhost:8080",
     scope: "openid email profile",
+    rolesClaim: "groups"
   },
 };
